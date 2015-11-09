@@ -1,16 +1,14 @@
 class Season
 {
-  int year;
-  int played;
-  int scored;
-  int conceded;
-  int wins;
-  int draws;
-  int losses;
-  int points;
-  int position;
-  
-  String[] stats = loadStrings("arsenalplseasons.csv");
+  float year;
+  float played;
+  float scored;
+  float conceded;
+  float wins;
+  float draws;
+  float losses;
+  float points;
+  float position;
   
   Season()
   {
