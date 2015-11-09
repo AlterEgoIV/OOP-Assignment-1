@@ -4,7 +4,9 @@ void setup()
   background(0);
 }
 
+ArrayList<Season> season = new ArrayList<Season>();
+
 void draw()
 {
-  
+
 }
