@@ -35,10 +35,11 @@ void setup()
       fVal.remove(i);
     }
     
+    // Problem may be here, everything prints fine up till this point
     season.add(s);
   }
   
-  /*for(int i = 0; i < season.size(); i++)
+  for(int i = 0; i < season.size(); i++)
   {
     print(season.get(i).year);
     print(season.get(i).played);
@@ -49,7 +50,7 @@ void setup()
     print(season.get(i).losses);
     print(season.get(i).points);
     println(season.get(i).position);
-  }*/
+  }
 }
 
 ArrayList<Season> season = new ArrayList<Season>();
