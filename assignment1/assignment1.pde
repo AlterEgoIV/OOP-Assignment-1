@@ -1,15 +1,32 @@
 void setup()
 {
-  size(500, 500);
+  size(800, 800);
   background(0);
   
+  loadDataset();
+  //printDataset();
+  
+  calcGoalsPerGame();
+  
+  drawBarChart();
+}
+
+ArrayList<Season> season = new ArrayList<Season>();
+ArrayList<Float> goalsPerGame = new ArrayList<Float>(); // Goals scored / number games
+
+void draw()
+{
+}
+
+void loadDataset()
+{
   String[] dataset = loadStrings("arsenalplseasons.csv");
-  ArrayList<Float> fVal = new ArrayList<Float>();
   
   for(String d : dataset)
   {
     // Moved object creation to loop
     Season s = new Season();
+    ArrayList<Float> fVal = new ArrayList<Float>();
     
     String[] field = d.split(",");
     
@@ -28,15 +45,12 @@ void setup()
     s.points = fVal.get(7);
     s.position = fVal.get(8);
     
-    // Remove elements
-    for(int i = fVal.size() - 1; i >= 0; i--)
-    {
-      fVal.remove(i);
-    }
-    
     season.add(s);
   }
-  
+}
+
+void printDataset()
+{
   for(int i = 0; i < season.size(); i++)
   {
     print(season.get(i).year);
@@ -51,8 +65,51 @@ void setup()
   }
 }
 
-ArrayList<Season> season = new ArrayList<Season>();
-
-void draw()
+void calcGoalsPerGame()
 {
+  for(int i = 0; i < season.size(); i++)
+  {
+    goalsPerGame.add(season.get(i).scored / season.get(i).played);
+  }
+}
+
+void drawBarChart()
+{
+  stroke(255);
+  
+  float x = 0, y = 0;
+  float border = width / 12;
+  float graphLength = width - (border * 2);
+  float barWidth = graphLength / season.size();
+  float vertSmallLineLength = height / 100;
+  float horiSmallLineLength = width / 100;
+  int index = 0;
+  textSize(width / 100);
+  
+  /*for(int i = 0; i < season.size(); i++)
+  {
+    line(border, height - border, border + x, height - border);
+    line(border + x, (height - border), border + x, (height - border) + vertSmallLineLength);
+    text(round(season.get(i).year), border + x, (height - border) + vertSmallLineLength + 20);
+    
+    x += barWidth;
+  }*/
+  
+  for(int i = 0; i <= graphLength; i += barWidth)
+  {    
+    line(border, height - border, border + x, height - border);
+    line(border + x, (height - border), border + x, (height - border) + vertSmallLineLength);
+    
+    if(i < graphLength)
+    {
+      text(round(season.get(index).year), border + x, (height - border) + vertSmallLineLength + 20);
+    }
+    
+    if(index < season.size() - 1)
+    {
+      
+      index++;
+    }
+    x += barWidth;
+  }
 }
