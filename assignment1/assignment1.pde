@@ -12,7 +12,7 @@ void setup()
 }
 
 ArrayList<Season> season = new ArrayList<Season>();
-ArrayList<Float> goalsPerGame = new ArrayList<Float>(); // Goals scored / number games
+ArrayList<Float> goalsPerGame = new ArrayList<Float>(); // Goals scored / number of games
 
 void draw()
 {
@@ -71,45 +71,73 @@ void calcGoalsPerGame()
   {
     goalsPerGame.add(season.get(i).scored / season.get(i).played);
   }
+  
+  generateRange();
+}
+
+void generateRange()
+{
+  float max = 0.0f;
+
+  for(int i = 0; i < season.size(); i++)
+  {
+    if(goalsPerGame.get(i) > max)
+    {
+      max = goalsPerGame.get(i);
+    }
+  }
+  
+  println(max);
 }
 
 void drawBarChart()
 {
   stroke(255);
   
-  float x = 0, y = 0;
-  float border = width / 12;
-  float graphLength = width - (border * 2);
+  float x = 0.0f, y = 0.0f;
+  float border = width / 12.0f;
+  float graphLength = width - (border * 2.0f);
+  float vertPoints = graphLength / 10.0f;
   float barWidth = graphLength / season.size();
-  float vertSmallLineLength = height / 100;
-  float horiSmallLineLength = width / 100;
-  int index = 0;
-  textSize(width / 100);
+  float vertSmallLineLength = height / 100.0f;
+  float horiSmallLineLength = width / 100.0f;
+  float inc = 0.0f;
+  textSize(width / 100.0f);
   
-  /*for(int i = 0; i < season.size(); i++)
+  for(int i = 0; i <= season.size(); i++)
   {
-    line(border, height - border, border + x, height - border);
-    line(border + x, (height - border), border + x, (height - border) + vertSmallLineLength);
-    text(round(season.get(i).year), border + x, (height - border) + vertSmallLineLength + 20);
-    
-    x += barWidth;
-  }*/
-  
-  for(int i = 0; i <= graphLength; i += barWidth)
-  {    
+    // Horizontal line
     line(border, height - border, border + x, height - border);
     line(border + x, (height - border), border + x, (height - border) + vertSmallLineLength);
     
-    if(i < graphLength)
+    // Out of bounds error without if() statement
+    if(i < season.size())
     {
-      text(round(season.get(index).year), border + x, (height - border) + vertSmallLineLength + 20);
+      /*
+        Extra 3 spacing aligns years properly
+        Extra 20 spacing at end drops the years down a bit - looks neater
+      */
+      fill(255);
+      text(round(season.get(i).year), border + x + 3, (height - border) + vertSmallLineLength + 20);
+      fill(random(255), random(255), random(255));
+      rect(border + x, height - border * 2, border, border);
     }
     
-    if(index < season.size() - 1)
+    /*
+      Increments of y points are sufficiently bigger than increments of x points that to draw the 
+      entire vertical line the points need only be drawn half as many times as there are elements in the ArrayList.
+    */
+    if(i < season.size() / 2)
     {
-      
-      index++;
-    }
+      // Vertical line
+      line(border, height - border, border, (height - border) - y);
+      line(border - horiSmallLineLength, (height - border) - y, border, (height - border) - y);
+      fill(255);
+      text(Float.toString(inc), border - horiSmallLineLength - 20, (height - border) - y);
+    } 
+    
     x += barWidth;
+    y += vertPoints;
+    inc += 0.5;
   }
 }
