@@ -72,10 +72,10 @@ void calcGoalsPerGame()
     goalsPerGame.add(season.get(i).scored / season.get(i).played);
   }
   
-  generateRange();
+  //generateRange();
 }
 
-void generateRange()
+/*float getMaxFromArray()
 {
   float max = 0.0f;
 
@@ -88,7 +88,7 @@ void generateRange()
   }
   
   println(max);
-}
+}*/
 
 void drawBarChart()
 {
@@ -102,10 +102,21 @@ void drawBarChart()
   float vertSmallLineLength = height / 100.0f;
   float horiSmallLineLength = width / 100.0f;
   float inc = 0.0f;
+  float maxValue = 0.0f;
+  float value = 0.0f;
   textSize(width / 100.0f);
+
+  // Calculate max value from ArrayList to map range
+  for(int i = 0; i < season.size(); i++)
+  {
+    if(goalsPerGame.get(i) > maxValue)
+    {
+      maxValue = goalsPerGame.get(i);
+    }
+  }
   
   for(int i = 0; i <= season.size(); i++)
-  {
+  {    
     // Horizontal line
     line(border, height - border, border + x, height - border);
     line(border + x, (height - border), border + x, (height - border) + vertSmallLineLength);
@@ -113,14 +124,19 @@ void drawBarChart()
     // Out of bounds error without if() statement
     if(i < season.size())
     {
+      // Map Range
+      value = map(goalsPerGame.get(i), 0, maxValue, 0, graphLength);
+      
       /*
         Extra 3 spacing aligns years properly
         Extra 20 spacing at end drops the years down a bit - looks neater
       */
       fill(255);
       text(round(season.get(i).year), border + x + 3, (height - border) + vertSmallLineLength + 20);
+      
+      // Draw bars
       fill(random(255), random(255), random(255));
-      rect(border + x, height - border * 2, border, border);
+      rect(border + x, (height - border) - value, barWidth, value);
     }
     
     /*
@@ -132,6 +148,7 @@ void drawBarChart()
       // Vertical line
       line(border, height - border, border, (height - border) - y);
       line(border - horiSmallLineLength, (height - border) - y, border, (height - border) - y);
+      
       fill(255);
       text(Float.toString(inc), border - horiSmallLineLength - 20, (height - border) - y);
     } 
