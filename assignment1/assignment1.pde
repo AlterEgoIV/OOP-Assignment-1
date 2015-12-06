@@ -1,20 +1,16 @@
+Graph graph;
+ArrayList<Season> season = new ArrayList<Season>();
+
 void setup()
 {
-  size(700, 700);
+  size(800, 800);
   background(0);
   
   loadDataset();
-  //printDataset();
   
-  Graph graph = new Graph();
-  
-  calcGoalsPerGame();
-  
+  graph = new Graph();
   graph.drawBarChart();
 }
-
-ArrayList<Season> season = new ArrayList<Season>();
-ArrayList<Float> goalsPerGame = new ArrayList<Float>(); // Goals scored / number of games
 
 void draw()
 {
@@ -51,7 +47,7 @@ void loadDataset()
   }
 }
 
-void printDataset()
+/*void printDataset()
 {
   for(int i = 0; i < season.size(); i++)
   {
@@ -65,31 +61,6 @@ void printDataset()
     print(season.get(i).points);
     println(season.get(i).position);
   }
-}
-
-void calcGoalsPerGame()
-{
-  for(int i = 0; i < season.size(); i++)
-  {
-    goalsPerGame.add(season.get(i).scored / season.get(i).played);
-  }
-  
-  //generateRange();
-}
-
-/*float getMaxFromArray()
-{
-  float max = 0.0f;
-
-  for(int i = 0; i < season.size(); i++)
-  {
-    if(goalsPerGame.get(i) > max)
-    {
-      max = goalsPerGame.get(i);
-    }
-  }
-  
-  println(max);
 }*/
 
 
