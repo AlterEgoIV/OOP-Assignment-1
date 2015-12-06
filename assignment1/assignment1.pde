@@ -1,15 +1,18 @@
-Graph graph;
+Visualisation graph;
 ArrayList<Season> season = new ArrayList<Season>();
 
 void setup()
 {
+  // You can view the full visualisations at any size,
+  // however optimal view resolutions are 800 x 800 or above
   size(800, 800);
   background(0);
   
   loadDataset();
   
   graph = new Graph();
-  graph.drawBarChart();
+ 
+  graph.display();
 }
 
 void draw()

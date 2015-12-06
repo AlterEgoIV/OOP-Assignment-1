@@ -1,33 +1,33 @@
-class Graph
+class Graph extends Visualisation
 {
-  float x;
-  float y;
-  float border;
-  float graphLength;
+  float horiBorder;
+  float vertBorder;
+  float horiGraphLength;
+  float vertGraphLength;
   float vertPoints;
   float barWidth;
+  float barHeight;
   float vertSmallLineLength;
   float horiSmallLineLength;
   float inc;
   float maxValue;
-  float value;
   
   // Goals scored / number of games
   ArrayList<Float> goalsPerGame;
   
   Graph()
   {
-    x = 0.0f;
-    y = 0.0f;
-    border = width / 12.0f;
-    graphLength = width - (border * 2.0f);
-    vertPoints = graphLength / 10.0f;
-    barWidth = graphLength / season.size();
+    horiBorder = width / 12.0f;
+    vertBorder = height / 12.0f;
+    horiGraphLength = width - (horiBorder * 2.0f);
+    vertGraphLength = height - (vertBorder * 2.0f);
+    vertPoints = vertGraphLength / 10.0f;
+    barWidth = horiGraphLength / season.size();
+    barHeight = 0.0f;
     vertSmallLineLength = height / 100.0f;
     horiSmallLineLength = width / 100.0f;
     inc = 0.0f;
     maxValue = 0.0f;
-    value = 0.0f;
     goalsPerGame = new ArrayList<Float>();
     
     calcGoalsPerGame();
@@ -41,7 +41,7 @@ class Graph
     }
   }
   
-  void drawBarChart()
+  void display()
   {
     stroke(255);
     
@@ -60,28 +60,29 @@ class Graph
     {    
       // Horizontal line
       textSize(width / 50);
-      text("Seasons", width / 2, height - (border / 4));
+      text("Seasons", width / 2, height - (vertBorder / 4));
       
       textSize(width / 100.0f);
-      line(border, height - border, border + x, height - border);
-      line(border + x, (height - border), border + x, (height - border) + vertSmallLineLength);
+      line(horiBorder, height - vertBorder, horiBorder + x, height - vertBorder);
+      line(horiBorder + x, (height - vertBorder), horiBorder + x, (height - vertBorder) + vertSmallLineLength);
       
       // Out of bounds error without if() statement
       if(i < season.size())
       {
         // Map Range
-        value = map(goalsPerGame.get(i), 0, maxValue, 0, graphLength);
+        barHeight = map(goalsPerGame.get(i), 0, maxValue, 0, vertGraphLength);
         
         /*
           Extra 3 spacing aligns years properly
           Extra 20 spacing at end drops the years down a bit - looks neater
         */
         fill(255);
-        text(round(season.get(i).year), border + x + 3, (height - border) + vertSmallLineLength + 20);
+        text(round(season.get(i).year), horiBorder + x + 3, (height - vertBorder) + vertSmallLineLength + 20);
         
         // Draw bars
-        fill(random(255), random(255), random(255));
-        rect(border + x, (height - border) - value, barWidth, value);
+        int colour = (int)map(barHeight, 0, vertGraphLength, 0, 255);
+        fill(colour, 0, 0);
+        rect(horiBorder + x, (height - vertBorder) - barHeight, barWidth, barHeight);
       }
       
       /*
@@ -94,7 +95,7 @@ class Graph
         vertPointValue = float(sf);
         
         pushMatrix();
-        translate(border / 3, height / 2);
+        translate(horiBorder / 3, height / 2);
         rotate(-HALF_PI);
         textSize(height / 50);
         text("Goals per Game", 0, 0);
@@ -102,11 +103,11 @@ class Graph
         
         // Vertical line
         textSize(width / 100.0f);
-        line(border, height - border, border, (height - border) - y);
-        line(border - horiSmallLineLength, (height - border) - y, border, (height - border) - y);
+        line(horiBorder, height - vertBorder, horiBorder, (height - vertBorder) - y);
+        line(horiBorder - horiSmallLineLength, (height - vertBorder) - y, horiBorder, (height - vertBorder) - y);
         
         fill(255);
-        text(Float.toString(vertPointValue * i), border - horiSmallLineLength - 25, (height - border) - y);
+        text(Float.toString(vertPointValue * i), horiBorder - horiSmallLineLength - 25, (height - vertBorder) - y);
       } 
       
       x += barWidth;
