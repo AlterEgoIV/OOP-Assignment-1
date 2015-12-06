@@ -1,3 +1,4 @@
+Menu menu;
 Visualisation graph;
 ArrayList<Season> season = new ArrayList<Season>();
 
@@ -10,13 +11,20 @@ void setup()
   
   loadDataset();
   
+  menu = new Menu();
   graph = new Graph();
- 
-  graph.display();
+  
+  menu.display();
 }
 
 void draw()
 {
+  
+}
+
+void mousePressed()
+{
+  menu.chooseOption();
 }
 
 void loadDataset()

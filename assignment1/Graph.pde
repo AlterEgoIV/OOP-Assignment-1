@@ -44,6 +44,7 @@ class Graph extends Visualisation
   void display()
   {
     stroke(255);
+    strokeWeight(1);
     
     // Calculate max value from ArrayList to map range
     for(int i = 0; i < season.size(); i++)
@@ -60,6 +61,7 @@ class Graph extends Visualisation
     {    
       // Horizontal line
       textSize(width / 50);
+      textAlign(CENTER);
       text("Seasons", width / 2, height - (vertBorder / 4));
       
       textSize(width / 100.0f);
