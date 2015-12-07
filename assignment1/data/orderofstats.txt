@@ -1,1 +1,0 @@
-season, games played, goals scored, goals conceded, wins, draws, losses, total points, league position
