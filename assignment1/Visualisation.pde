@@ -27,4 +27,5 @@ abstract class Visualisation
   
   abstract void display();
   abstract void changeDisplay();
+  abstract void animateMenuButton();
 }

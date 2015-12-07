@@ -2,15 +2,20 @@ Menu menu;
 Visualisation barchart;
 Visualisation bubblechart;
 ArrayList<Season> season = new ArrayList<Season>();
+ArrayList<PImage> image = new ArrayList<PImage>();
+int second = 1000;
+int counter = 0;
+int time = -second * 10;
 
 void setup()
 {
   // You can view the full visualisations at any size,
   // however optimal view resolutions are 800 x 800 or above
-  size(800, 800);
+  size(1200, 800);
   background(0);
   
   loadDataset();
+  loadImages();
   
   menu = new Menu();
   barchart = new Barchart();
@@ -21,7 +26,34 @@ void setup()
 
 void draw()
 {
-  animateMenuButton();
+  if(menu.inMenu)
+  {
+    int numImages = 5;
+    
+    if(millis() - time > (second * 10))
+    {
+      for(int i = 0; i < numImages; i++)
+      {
+        if(i == counter)
+        {
+          image.get(i).resize(width, 0);
+        
+          image(image.get(i), 0, height / 5);
+        }
+      }
+      
+      counter++;
+      time = millis();
+      
+      if(counter == numImages)
+      {
+        counter = 0;
+      }
+    }
+  }
+  
+  // Works for bubblechart as well since conditions for both buttons are the same
+  barchart.animateMenuButton();
 }
 
 void mousePressed()
@@ -69,26 +101,13 @@ void loadDataset()
   }
 }
 
-void animateMenuButton()
+void loadImages()
 {
-  if(!menu.inMenu)
+  int numImages = 5;
+  
+  for(int i = 0; i < numImages; i++)
   {
-    if(mouseX > 0 && mouseY > 0 && mouseX < barchart.horiBorder && mouseY < barchart.vertBorder / 2)
-    {
-      fill(255);
-      rect(0, 0, barchart.horiBorder, barchart.vertBorder / 2);
-      fill(255, 0, 0);
-      textSize(width / 50);
-      text("Menu", barchart.horiBorder / 2, barchart.vertBorder / 3);
-    }
-    else
-    {
-      fill(255, 0, 0);
-      rect(0, 0, barchart.horiBorder, barchart.vertBorder / 2);
-      fill(255);
-      textSize(width / 50);
-      text("Menu", barchart.horiBorder / 2, barchart.vertBorder / 3);
-    }
+    image.add(loadImage(i + ".jpg"));
   }
 }
 

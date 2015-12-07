@@ -123,4 +123,27 @@ class Barchart extends Visualisation
       menu.display();
     }
   }
+  
+  void animateMenuButton()
+  {
+    if(!menu.inMenu)
+    {
+      if(mouseX > 0 && mouseY > 0 && mouseX < barchart.horiBorder && mouseY < barchart.vertBorder / 2)
+      {
+        fill(255);
+        rect(0, 0, barchart.horiBorder, barchart.vertBorder / 2);
+        fill(255, 0, 0);
+        textSize(width / 50);
+        text("Menu", barchart.horiBorder / 2, barchart.vertBorder / 3);
+      }
+      else
+      {
+        fill(255, 0, 0);
+        rect(0, 0, barchart.horiBorder, barchart.vertBorder / 2);
+        fill(255);
+        textSize(width / 50);
+        text("Menu", barchart.horiBorder / 2, barchart.vertBorder / 3);
+      }
+    }
+  }
 }

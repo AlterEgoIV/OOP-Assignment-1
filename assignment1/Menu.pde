@@ -19,13 +19,15 @@ class Menu
     textAlign(CENTER);
     text("Menu", width / 2, height / 10);
     fill(255, 0, 0);
-    rect(0, height / 5, width / 2, height);
+    rect(0, height / 5, width / 4, height / 5);
     fill(0, 190, 255);
     rect(width / 2, height / 5, width, height);
     fill(0);
     text("Graph 1", width / 4, height / 2);
     fill(0);
     text("Graph 2", width - (width / 4), height / 2);
+    
+    
   }
   
   void changeDisplay()
