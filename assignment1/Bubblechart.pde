@@ -1,15 +1,17 @@
 class Bubblechart extends Visualisation
 {
-  float barWidth;
-  float barHeight;
+  float colWidth;
+  float pointHeight;
+  float radius;
   
-  // Goals scored / number of games
+  // Goals conceded / number of games
   ArrayList<Float> goalsConcededPerGame;
   
   Bubblechart()
   {
-    barWidth = horiGraphLength / season.size();
-    barHeight = 0.0f;
+    colWidth = horiGraphLength / season.size();
+    pointHeight = 0.0f;
+    radius = 0.0f;
     
     maxValue = 0.0f;
     goalsConcededPerGame = new ArrayList<Float>();
@@ -21,7 +23,7 @@ class Bubblechart extends Visualisation
   {
     for(int i = 0; i < season.size(); i++)
     {
-      goalsConcededPerGame.add(season.get(i).scored / season.get(i).played);
+      goalsConcededPerGame.add(season.get(i).conceded / season.get(i).played);
     }
   }
   
@@ -59,11 +61,16 @@ class Bubblechart extends Visualisation
       line(horiBorder, height - vertBorder, horiBorder + x, height - vertBorder);
       line(horiBorder + x, (height - vertBorder), horiBorder + x, (height - vertBorder) + vertSmallLineLength);
       
+      // Uncomment for vertical lines
+      //line(horiBorder + x, height - vertBorder, horiBorder + x, vertBorder);
+      // Uncomment for horizontal lines
+      //line(horiBorder, vertBorder + y, horiBorder + vertGraphLength, vertBorder + y);
+      
       // Out of bounds error without if() statement
       if(i < season.size())
       {
         // Map Range
-        barHeight = map(goalsConcededPerGame.get(i), 0, maxValue, 0, vertGraphLength);
+        pointHeight = map(goalsConcededPerGame.get(i), 0, maxValue, 0, vertGraphLength);
         
         /*
           Extra 3 spacing aligns years properly
@@ -74,9 +81,13 @@ class Bubblechart extends Visualisation
         text(round(season.get(i).year), horiBorder + x + 3, (height - vertBorder) + vertSmallLineLength + 20);
         
         // Draw bars
-        int colour = (int)map(barHeight, 0, vertGraphLength, 0, 255);
+        radius = (goalsConcededPerGame.get(i) * colWidth) / 2;
+        int colour = (int)map(pointHeight, 0, vertGraphLength, 0, 255);
         fill(colour, 0, 0);
-        rect(horiBorder + x, (height - vertBorder) - barHeight, barWidth, barHeight);
+        ellipse(horiBorder + radius + x, (height - vertBorder) - pointHeight, radius * 2, radius * 2);
+        fill(255);
+        textAlign(CENTER);
+        text(round(season.get(i).year), horiBorder + x + radius, (height - vertBorder) - pointHeight);
       }
       
       /*
@@ -94,7 +105,7 @@ class Bubblechart extends Visualisation
         textSize(height / 50);
         textAlign(CENTER);
         fill(255);
-        text("Goals per Game", 0, 0);
+        text("Goals Conceded per Game", 0, 0);
         popMatrix();
         
         // Vertical line
@@ -107,7 +118,7 @@ class Bubblechart extends Visualisation
         text(Float.toString(vertPointValue * i), horiBorder - horiSmallLineLength - 25, (height - vertBorder) - y);
       } 
       
-      x += barWidth;
+      x += colWidth;
       y += vertPoints;
     }
   }

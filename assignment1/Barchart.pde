@@ -4,13 +4,13 @@ class Barchart extends Visualisation
   float barHeight;
   
   // Goals scored / number of games
-  ArrayList<Float> goalsPerGame;
+  ArrayList<Float> goalsScoredPerGame;
   
   Barchart()
   {
     barWidth = horiGraphLength / season.size();
     barHeight = 0.0f;
-    goalsPerGame = new ArrayList<Float>();
+    goalsScoredPerGame = new ArrayList<Float>();
     
     calcGoalsPerGame();
   } 
@@ -19,7 +19,7 @@ class Barchart extends Visualisation
   {
     for(int i = 0; i < season.size(); i++)
     {
-      goalsPerGame.add(season.get(i).scored / season.get(i).played);
+      goalsScoredPerGame.add(season.get(i).scored / season.get(i).played);
     }
   }
   
@@ -37,9 +37,9 @@ class Barchart extends Visualisation
     // Calculate max value from ArrayList to map range
     for(int i = 0; i < season.size(); i++)
     {
-      if(goalsPerGame.get(i) > maxValue)
+      if(goalsScoredPerGame.get(i) > maxValue)
       {
-        maxValue = goalsPerGame.get(i);
+        maxValue = goalsScoredPerGame.get(i);
       }
     }
     
@@ -61,7 +61,7 @@ class Barchart extends Visualisation
       if(i < season.size())
       {
         // Map Range
-        barHeight = map(goalsPerGame.get(i), 0, maxValue, 0, vertGraphLength);
+        barHeight = map(goalsScoredPerGame.get(i), 0, maxValue, 0, vertGraphLength);
         
         /*
           Extra 3 spacing aligns years properly
@@ -92,7 +92,7 @@ class Barchart extends Visualisation
         textSize(height / 50);
         textAlign(CENTER);
         fill(255);
-        text("Goals per Game", 0, 0);
+        text("Goals Scored per Game", 0, 0);
         popMatrix();
         
         // Vertical line
@@ -108,6 +108,9 @@ class Barchart extends Visualisation
       x += barWidth;
       y += vertPoints;
     }
+    
+    x = 0.0f;
+    y = 0.0f;
   }
   
   void changeDisplay()

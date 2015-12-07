@@ -1,4 +1,4 @@
-class Menu extends Visualisation
+class Menu
 { 
   boolean inMenu;
   
