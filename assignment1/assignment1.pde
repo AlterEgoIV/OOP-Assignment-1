@@ -1,5 +1,6 @@
 Menu menu;
-Visualisation graph;
+Visualisation barchart;
+Visualisation bubblechart;
 ArrayList<Season> season = new ArrayList<Season>();
 
 void setup()
@@ -12,19 +13,28 @@ void setup()
   loadDataset();
   
   menu = new Menu();
-  graph = new Graph();
+  barchart = new Barchart();
+  bubblechart = new Bubblechart();
   
   menu.display();
 }
 
 void draw()
 {
-  
 }
 
 void mousePressed()
 {
-  menu.chooseOption();
+  if(menu.inMenu)
+  {
+    menu.changeDisplay();
+  }
+  else
+  {
+    barchart = new Barchart();
+    bubblechart = new Bubblechart();
+    barchart.changeDisplay();
+  }
 }
 
 void loadDataset()

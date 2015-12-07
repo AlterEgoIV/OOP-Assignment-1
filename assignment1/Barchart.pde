@@ -1,33 +1,15 @@
-class Graph extends Visualisation
+class Barchart extends Visualisation
 {
-  float horiBorder;
-  float vertBorder;
-  float horiGraphLength;
-  float vertGraphLength;
-  float vertPoints;
   float barWidth;
   float barHeight;
-  float vertSmallLineLength;
-  float horiSmallLineLength;
-  float inc;
-  float maxValue;
   
   // Goals scored / number of games
   ArrayList<Float> goalsPerGame;
   
-  Graph()
+  Barchart()
   {
-    horiBorder = width / 12.0f;
-    vertBorder = height / 12.0f;
-    horiGraphLength = width - (horiBorder * 2.0f);
-    vertGraphLength = height - (vertBorder * 2.0f);
-    vertPoints = vertGraphLength / 10.0f;
     barWidth = horiGraphLength / season.size();
     barHeight = 0.0f;
-    vertSmallLineLength = height / 100.0f;
-    horiSmallLineLength = width / 100.0f;
-    inc = 0.0f;
-    maxValue = 0.0f;
     goalsPerGame = new ArrayList<Float>();
     
     calcGoalsPerGame();
@@ -46,6 +28,12 @@ class Graph extends Visualisation
     stroke(255);
     strokeWeight(1);
     
+    fill(255, 0, 0);
+    rect(0, 0, horiBorder, vertBorder / 2);
+    fill(255);
+    textAlign(CENTER);
+    text("Menu", horiBorder / 2, vertBorder / 3);
+    
     // Calculate max value from ArrayList to map range
     for(int i = 0; i < season.size(); i++)
     {
@@ -62,6 +50,7 @@ class Graph extends Visualisation
       // Horizontal line
       textSize(width / 50);
       textAlign(CENTER);
+      fill(255);
       text("Seasons", width / 2, height - (vertBorder / 4));
       
       textSize(width / 100.0f);
@@ -79,6 +68,7 @@ class Graph extends Visualisation
           Extra 20 spacing at end drops the years down a bit - looks neater
         */
         fill(255);
+        textAlign(BASELINE);
         text(round(season.get(i).year), horiBorder + x + 3, (height - vertBorder) + vertSmallLineLength + 20);
         
         // Draw bars
@@ -100,6 +90,8 @@ class Graph extends Visualisation
         translate(horiBorder / 3, height / 2);
         rotate(-HALF_PI);
         textSize(height / 50);
+        textAlign(CENTER);
+        fill(255);
         text("Goals per Game", 0, 0);
         popMatrix();
         
@@ -109,12 +101,23 @@ class Graph extends Visualisation
         line(horiBorder - horiSmallLineLength, (height - vertBorder) - y, horiBorder, (height - vertBorder) - y);
         
         fill(255);
+        textAlign(BASELINE);
         text(Float.toString(vertPointValue * i), horiBorder - horiSmallLineLength - 25, (height - vertBorder) - y);
       } 
       
       x += barWidth;
       y += vertPoints;
-      inc += 0.5;
+    }
+  }
+  
+  void changeDisplay()
+  {
+    textSize(width / 50);
+    
+    if(mouseX < horiBorder && mouseY < vertBorder / 2)
+    {
+      background(0);
+      menu.display();
     }
   }
 }

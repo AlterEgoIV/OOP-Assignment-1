@@ -1,11 +1,15 @@
-class Menu
+class Menu extends Visualisation
 { 
+  boolean inMenu;
+  
   Menu()
   {
+    inMenu = false;
   }
   
   void display()
   { 
+    inMenu = true;
     fill(255);
     stroke(255, 215, 0);
     strokeWeight(5);
@@ -24,19 +28,22 @@ class Menu
     text("Graph 2", width - (width / 4), height / 2);
   }
   
-  void chooseOption()
+  void changeDisplay()
   {
     textSize(width / 50);
     
     if(mouseX < width / 2 && mouseY > height / 5)
     {
+      inMenu = false;
       background(0);
-      graph.display();
+      barchart.display();
     }
     
     if(mouseX > width / 2 && mouseY > height / 5)
     {
-      text("Yeah!", mouseX, mouseY);
+      inMenu = false;
+      background(0);
+      bubblechart.display();
     }
   }
 }
