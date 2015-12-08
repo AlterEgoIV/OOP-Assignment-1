@@ -17,4 +17,4 @@ To allow the user to choose which visualisation to view, a menu has been include
 two highlightable buttons and image cycling, whereby several Arsenal related images are cycled through repeatedly 
 at set intervals. Highlightable return buttons have also been included in the barchart and bubblechart visualisations.
 
-![Alt text](/screenshots/screen1.jpg)
+![My image](RustedBot.github.com/RustedBot/OOP-Assignment-1/screenshots/screen1.png)
