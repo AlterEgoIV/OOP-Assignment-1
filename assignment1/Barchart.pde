@@ -72,7 +72,7 @@ class Barchart extends Visualisation
         text(round(season.get(i).year), horiBorder + x + 3, (height - vertBorder) + vertSmallLineLength + 20);
         
         // Draw bars
-        int colour = (int)map(barHeight, 0, vertGraphLength, 0, 255);
+        colour = (int)map(barHeight, 0, vertGraphLength, 0, 255);
         fill(colour, 0, 0);
         rect(horiBorder + x, (height - vertBorder) - barHeight, barWidth, barHeight);
       }

@@ -10,6 +10,7 @@ abstract class Visualisation
   float vertSmallLineLength;
   float horiSmallLineLength;
   float maxValue;
+  int colour;
   
   Visualisation()
   {
@@ -23,6 +24,7 @@ abstract class Visualisation
     vertSmallLineLength = height / 100.0f;
     horiSmallLineLength = width / 100.0f;
     maxValue = 0.0f;
+    colour = 0;
   }
   
   abstract void display();

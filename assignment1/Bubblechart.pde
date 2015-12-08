@@ -82,7 +82,7 @@ class Bubblechart extends Visualisation
         
         // Draw bars
         radius = (goalsConcededPerGame.get(i) * colWidth) / 2;
-        int colour = (int)map(pointHeight, 0, vertGraphLength, 0, 255);
+        colour = (int)map(pointHeight, 0, vertGraphLength, 0, 255);
         fill(colour, 0, 0);
         ellipse(horiBorder + radius + x, (height - vertBorder) - pointHeight, radius * 2, radius * 2);
         fill(255);

@@ -5,7 +5,7 @@ ArrayList<Season> season = new ArrayList<Season>();
 ArrayList<PImage> image = new ArrayList<PImage>();
 int second = 1000;
 int counter = 0;
-int time = -second * 10;
+int time = -second * 5;
 
 void setup()
 {
@@ -26,31 +26,8 @@ void setup()
 
 void draw()
 {
-  if(menu.inMenu)
-  {
-    int numImages = 5;
-    
-    if(millis() - time > (second * 10))
-    {
-      for(int i = 0; i < numImages; i++)
-      {
-        if(i == counter)
-        {
-          image.get(i).resize(width, 0);
-        
-          image(image.get(i), 0, height / 5);
-        }
-      }
-      
-      counter++;
-      time = millis();
-      
-      if(counter == numImages)
-      {
-        counter = 0;
-      }
-    }
-  }
+  cycleImages();
+  menu.animateVisualisationButtons();
   
   // Works for bubblechart as well since conditions for both buttons are the same
   barchart.animateMenuButton();
@@ -108,6 +85,35 @@ void loadImages()
   for(int i = 0; i < numImages; i++)
   {
     image.add(loadImage(i + ".jpg"));
+  }
+}
+
+void cycleImages()
+{
+  if(menu.inMenu)
+  {
+    int numImages = 5;
+    
+    if(millis() - time > (second * 5))
+    {
+      for(int i = 0; i < numImages; i++)
+      {
+        if(i == counter)
+        {
+          image.get(i).resize(width, 0);
+        
+          image(image.get(i), 0, height / 5);
+        }
+      }
+      
+      counter++;
+      time = millis();
+      
+      if(counter == numImages)
+      {
+        counter = 0;
+      }
+    }
   }
 }
 
