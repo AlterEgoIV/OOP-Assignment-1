@@ -143,7 +143,7 @@ void cycleImages()
       counter++;
       
       /* Update time to millis() (current time passed) so that millis() will have to progress at least 
-      another 5 seconds for millis() - time to be greater than 5 */
+      another 5 seconds for millis() - time to be greater than 5 seconds */
       time = millis();
       
       // Reset counter

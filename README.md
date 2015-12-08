@@ -16,3 +16,5 @@ Axis descriptions are included for both.
 To allow the user to choose which visualisation to view, a menu has been included. The menu features an Arsenal banner,
 two highlightable buttons and image cycling, whereby several Arsenal related images are cycled through repeatedly 
 at set intervals. Highlightable return buttons have also been included in the barchart and bubblechart visualisations.
+
+(https://raw.github.com/Assignment\assignment1\screenshots/screen1.jpg)
