@@ -9,8 +9,7 @@ int time = -second * 5;
 
 void setup()
 {
-  // You can view the full visualisations at any size,
-  // however optimal view resolutions are 800 x 800 or above
+  // optimal aspect ratio is 3 : 2
   size(1200, 800);
   background(0);
   
@@ -80,7 +79,7 @@ void loadDataset()
 
 void loadImages()
 {
-  int numImages = 5;
+  int numImages = 10;
   
   for(int i = 0; i < numImages; i++)
   {
@@ -92,7 +91,7 @@ void cycleImages()
 {
   if(menu.inMenu)
   {
-    int numImages = 5;
+    int numImages = 10;
     
     if(millis() - time > (second * 5))
     {
@@ -115,22 +114,10 @@ void cycleImages()
       }
     }
   }
-}
-
-/*void printDataset()
-{
-  for(int i = 0; i < season.size(); i++)
+  else
   {
-    print(season.get(i).year);
-    print(season.get(i).played);
-    print(season.get(i).scored);
-    print(season.get(i).conceded);
-    print(season.get(i).wins);
-    print(season.get(i).draws);
-    print(season.get(i).losses);
-    print(season.get(i).points);
-    println(season.get(i).position);
+    time = -second * 5;
   }
-}*/
+}
 
 
