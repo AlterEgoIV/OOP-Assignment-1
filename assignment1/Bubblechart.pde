@@ -32,6 +32,7 @@ class Bubblechart extends Visualisation
     stroke(255);
     strokeWeight(1);
     
+    // Menu button
     fill(255, 0, 0);
     rect(0, 0, horiBorder, vertBorder / 2);
     fill(255);
@@ -47,7 +48,8 @@ class Bubblechart extends Visualisation
       }
     }
     
-    float vertPointValue = maxValue / 10;
+    // Assigns biggest value in array / 10 as there are 10 vertical points
+    vertPointValue = maxValue / 10;
     
     for(int i = 0; i <= season.size(); i++)
     {    
@@ -60,11 +62,6 @@ class Bubblechart extends Visualisation
       textSize(width / 100.0f);
       line(horiBorder, height - vertBorder, horiBorder + x, height - vertBorder);
       line(horiBorder + x, (height - vertBorder), horiBorder + x, (height - vertBorder) + vertSmallLineLength);
-      
-      // Uncomment for vertical lines
-      //line(horiBorder + x, height - vertBorder, horiBorder + x, vertBorder);
-      // Uncomment for horizontal lines
-      //line(horiBorder, vertBorder + y, horiBorder + vertGraphLength, vertBorder + y);
       
       // Out of bounds error without if() statement
       if(i < season.size())
@@ -80,13 +77,15 @@ class Bubblechart extends Visualisation
         textAlign(BASELINE);
         text(round(season.get(i).year), horiBorder + x + 3, (height - vertBorder) + vertSmallLineLength + 20);
         
-        // Draw bars
+        // Draw bubbles
         radius = (goalsConcededPerGame.get(i) * colWidth) / 2;
         colour = (int)map(pointHeight, 0, vertGraphLength, 0, 255);
         fill(colour, 0, 0);
         ellipse(horiBorder + radius + x, (height - vertBorder) - pointHeight, radius * 2, radius * 2);
         fill(255);
         textAlign(CENTER);
+        
+        // Draw horizontal axis values
         text(round(season.get(i).year), horiBorder + x + radius, (height - vertBorder) - pointHeight);
       }
       
@@ -96,9 +95,12 @@ class Bubblechart extends Visualisation
       */
       if(i < season.size() / 2)
       {
-        String sf = nf(vertPointValue, 1, 2);
-        vertPointValue = float(sf);
+        // Converts vertPointValue to string with 2 decimal places
+        tempS = nf(vertPointValue, 1, 2);
+        // Assigns vertPointValue tempS as float
+        vertPointValue = float(tempS);
         
+        // Allows text to be drawn sideways
         pushMatrix();
         translate(horiBorder / 3, height / 2);
         rotate(-HALF_PI);
@@ -115,9 +117,12 @@ class Bubblechart extends Visualisation
         
         fill(255);
         textAlign(BASELINE);
+        
+        // Draw vertical axis values
         text(Float.toString(vertPointValue * i), horiBorder - horiSmallLineLength - 25, (height - vertBorder) - y);
       } 
       
+      // Increment coordinates being drawn to
       x += colWidth;
       y += vertPoints;
     }
@@ -138,6 +143,7 @@ class Bubblechart extends Visualisation
   {
     if(!menu.inMenu)
     {
+      // Mouse hover colours
       if(mouseX > 0 && mouseY > 0 && mouseX < barchart.horiBorder && mouseY < barchart.vertBorder / 2)
       {
         fill(255);
@@ -148,6 +154,7 @@ class Bubblechart extends Visualisation
       }
       else
       {
+        // Default colours
         fill(255, 0, 0);
         rect(0, 0, barchart.horiBorder, barchart.vertBorder / 2);
         fill(255);

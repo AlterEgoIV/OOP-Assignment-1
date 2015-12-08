@@ -8,6 +8,7 @@ class Barchart extends Visualisation
   
   Barchart()
   {
+    // The width of each bar is the horizontal graph length / number of seasons
     barWidth = horiGraphLength / season.size();
     barHeight = 0.0f;
     goalsScoredPerGame = new ArrayList<Float>();
@@ -28,6 +29,7 @@ class Barchart extends Visualisation
     stroke(255);
     strokeWeight(1);
     
+    // Menu button
     fill(255, 0, 0);
     rect(0, 0, horiBorder, vertBorder / 2);
     fill(255);
@@ -43,7 +45,8 @@ class Barchart extends Visualisation
       }
     }
     
-    float vertPointValue = maxValue / 10;
+    // Assigns biggest value in array / 10 as there are 10 vertical points
+    vertPointValue = maxValue / 10;
     
     for(int i = 0; i <= season.size(); i++)
     {    
@@ -69,6 +72,8 @@ class Barchart extends Visualisation
         */
         fill(255);
         textAlign(BASELINE);
+        
+        // Draw horizontal axis values
         text(round(season.get(i).year), horiBorder + x + 3, (height - vertBorder) + vertSmallLineLength + 20);
         
         // Draw bars
@@ -83,9 +88,12 @@ class Barchart extends Visualisation
       */
       if(i < season.size() / 2)
       {
-        String sf = nf(vertPointValue, 1, 2);
-        vertPointValue = float(sf);
+        // Converts vertPointValue to string with 2 decimal places
+        tempS = nf(vertPointValue, 1, 2);
+        // Assigns vertPointValue tempS as float
+        vertPointValue = float(tempS);
         
+        // Allows text to be drawn sideways
         pushMatrix();
         translate(horiBorder / 3, height / 2);
         rotate(-HALF_PI);
@@ -102,15 +110,15 @@ class Barchart extends Visualisation
         
         fill(255);
         textAlign(BASELINE);
+        
+        // Draw vertical axis values
         text(Float.toString(vertPointValue * i), horiBorder - horiSmallLineLength - 25, (height - vertBorder) - y);
       } 
       
+      // Increment coordinates being drawn to
       x += barWidth;
       y += vertPoints;
     }
-    
-    x = 0.0f;
-    y = 0.0f;
   }
   
   void changeDisplay()
@@ -130,6 +138,7 @@ class Barchart extends Visualisation
     {
       if(mouseX > 0 && mouseY > 0 && mouseX < barchart.horiBorder && mouseY < barchart.vertBorder / 2)
       {
+        // Mouse hover colours
         fill(255);
         rect(0, 0, barchart.horiBorder, barchart.vertBorder / 2);
         fill(255, 0, 0);
@@ -138,6 +147,7 @@ class Barchart extends Visualisation
       }
       else
       {
+        // Default colours
         fill(255, 0, 0);
         rect(0, 0, barchart.horiBorder, barchart.vertBorder / 2);
         fill(255);
